@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 import sys
 import subprocess
 import re
@@ -52,6 +53,11 @@ class Stck(QWidget):
         build_options.addWidget(self.include_path_data)
         build_options_group.setLayout(build_options)
 
+        logo_label = QLabel()
+        logo = QPixmap('logo.png')
+        logo_label.setPixmap(logo)
+        logo_label.setScaledContents(True)
+
         file_group = QGroupBox("Location Select")
         file = QHBoxLayout()
         file.addWidget(QLabel("Location:"))
@@ -65,6 +71,7 @@ class Stck(QWidget):
         about_group.setLayout(about)
 
         main = QVBoxLayout()
+        main.addWidget(logo_label)
         main.addWidget(file_group)
         main.addWidget(build_options_group)
         main.addWidget(build_group)
@@ -73,7 +80,7 @@ class Stck(QWidget):
         self.setLayout(main)
         self.setWindowTitle('DPSHT - SPWN GUI')
         self.setFixedWidth(400)
-        self.setFixedHeight(515)
+        self.setFixedHeight(700)
         self.show()
 
     def level_name_change(self, state):
