@@ -12,7 +12,7 @@ class Dpsht(QWidget):
 
     def initUI(self):
         spwn_ver = subprocess.check_output(['spwn', 'version']).decode()
-        dpsht_ver = "v0.0.1-dev"
+        dpsht_ver = "v0.1.0-dev"
         
         ver_match = re.compile("v[0-9]+[.][0-9]+[.][0-9]+")
         if ver_match.match(spwn_ver) == None:
