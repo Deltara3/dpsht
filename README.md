@@ -1,4 +1,3 @@
-# DPSHT
-A GUI frontend for [SPWN](https://github.com/Spu7Nix/SPWN-language)
+<img align="center" src="logo.png">
 
 # DOESN'T DO ANYTHING YET
