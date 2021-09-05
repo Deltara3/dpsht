@@ -62,8 +62,10 @@ class Dpsht(QWidget):
         file_group = QGroupBox("Location Select")
         file = QHBoxLayout()
         file.addWidget(QLabel("Location:"))
-        file.addWidget(QLineEdit())
-        file.addWidget(QPushButton('Browse'))
+        self.location_data = QLineEdit()
+        file.addWidget(self.location_data)
+        self.browse_button = QPushButton('Browse')
+        file.addWidget(self.browse_button)
         file_group.setLayout(file)
 
         about_group = QGroupBox("About")
@@ -104,6 +106,9 @@ class Dpsht(QWidget):
         else:
             self.include_path_data.clear()
             self.include_path_data.setDisabled(True)
+
+    def build_button_click(self):
+
 
 def main():
     app = QApplication(sys.argv)
