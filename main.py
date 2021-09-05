@@ -107,9 +107,6 @@ class Dpsht(QWidget):
             self.include_path_data.clear()
             self.include_path_data.setDisabled(True)
 
-    def build_button_click(self):
-
-
 def main():
     app = QApplication(sys.argv)
     dpsht = Dpsht()
