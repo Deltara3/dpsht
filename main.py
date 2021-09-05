@@ -80,7 +80,7 @@ class Dpsht(QWidget):
         self.setLayout(main)
         self.setWindowTitle(f'DPSHT {dpsht_ver}')
         self.setFixedWidth(400)
-        self.setFixedHeight(700)
+        self.setFixedHeight(680)
         self.show()
 
     def level_name_change(self, state):
