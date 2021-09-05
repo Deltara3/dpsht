@@ -24,7 +24,6 @@ class Stck(QWidget):
         build_type.addItem("Documentation")
         build.addWidget(build_type)
         build.addWidget(QPushButton("Build"))
-        build.addWidget(QLabel(f"SPWN Version: {spwn_ver}\nDPSHT Version: {stck_ver}"))
         build_group.setLayout(build)
 
         build_options_group = QGroupBox("Build Options")
@@ -60,15 +59,21 @@ class Stck(QWidget):
         file.addWidget(QPushButton('Browse'))
         file_group.setLayout(file)
 
+        about_group = QGroupBox("About")
+        about = QVBoxLayout()
+        about.addWidget(QLabel(f"SPWN Version: {spwn_ver}\nDPSHT Version: {stck_ver}"))
+        about_group.setLayout(about)
+
         main = QVBoxLayout()
         main.addWidget(file_group)
         main.addWidget(build_options_group)
         main.addWidget(build_group)
+        main.addWidget(about_group)
 
         self.setLayout(main)
         self.setWindowTitle('DPSHT - SPWN GUI')
         self.setFixedWidth(400)
-        self.setFixedHeight(500)
+        self.setFixedHeight(515)
         self.show()
 
     def level_name_change(self, state):
