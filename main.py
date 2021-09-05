@@ -5,14 +5,14 @@ import sys
 import subprocess
 import re
 
-class Stck(QWidget):
+class Dpsht(QWidget):
     def __init__(self):
         super().__init__()
         self.initUI()
 
     def initUI(self):
         spwn_ver = subprocess.check_output(['spwn', 'version']).decode()
-        stck_ver = "v0.0.1"
+        dpsht_ver = "v0.0.1-dev"
         
         ver_match = re.compile("v[0-9]+[.][0-9]+[.][0-9]+")
         if ver_match.match(spwn_ver) == None:
@@ -67,7 +67,7 @@ class Stck(QWidget):
 
         about_group = QGroupBox("About")
         about = QVBoxLayout()
-        about.addWidget(QLabel(f"SPWN Version: {spwn_ver}\nDPSHT Version: {stck_ver}"))
+        about.addWidget(QLabel(f"SPWN Version: {spwn_ver}\nDPSHT Version: {dpsht_ver}"))
         about_group.setLayout(about)
 
         main = QVBoxLayout()
@@ -78,7 +78,7 @@ class Stck(QWidget):
         main.addWidget(about_group)
 
         self.setLayout(main)
-        self.setWindowTitle('DPSHT - SPWN GUI')
+        self.setWindowTitle(f'DPSHT {dpsht_ver}')
         self.setFixedWidth(400)
         self.setFixedHeight(700)
         self.show()
@@ -106,7 +106,7 @@ class Stck(QWidget):
 
 def main():
     app = QApplication(sys.argv)
-    stck = Stck()
+    dpsht = Dpsht()
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
