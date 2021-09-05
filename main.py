@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
+from pathlib import Path
 import sys
 import subprocess
 import re
@@ -25,6 +26,7 @@ class Dpsht(QWidget):
         self.build_type.addItem("Documentation")
         build.addWidget(self.build_type)
         self.build_button = QPushButton("Build")
+        self.build_button.clicked.connect(self.build_button_click)
         build.addWidget(self.build_button)
         build_group.setLayout(build)
 
@@ -65,6 +67,7 @@ class Dpsht(QWidget):
         self.location_data = QLineEdit()
         file.addWidget(self.location_data)
         self.browse_button = QPushButton('Browse')
+        self.browse_button.clicked.connect(self.browse_button_click)
         file.addWidget(self.browse_button)
         file_group.setLayout(file)
 
@@ -106,6 +109,22 @@ class Dpsht(QWidget):
         else:
             self.include_path_data.clear()
             self.include_path_data.setDisabled(True)
+
+    def build_button_click(self):
+        script = self.location_data.text()
+        info = QMessageBox()
+        info.setWindowTitle("Output")
+        info.setText(script)
+        info.exec()
+
+    def browse_button_click(self):
+        selection = self.build_type.currentText()
+        if selection == "Script":
+            browse = QFileDialog.getOpenFileName(self, 'Open script', str(Path.home()), "SPWN scripts (*.spwn)")
+            self.location_data.setText(browse[0])
+        elif selection == "Documentation":
+            browse = QFileDialog.getExistingDirectory(self, 'Select library directory')
+            self.location_data.setText(browse)
 
 def main():
     app = QApplication(sys.argv)
