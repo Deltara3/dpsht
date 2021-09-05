@@ -11,7 +11,7 @@ class Stck(QWidget):
 
     def initUI(self):
         spwn_ver = subprocess.check_output(['spwn', 'version']).decode()
-        stck_ver = "v0.0.1"
+        stck_ver = "v0.1.0"
         
         ver_match = re.compile("v[0-9]+[.][0-9]+[.][0-9]+")
         if ver_match.match(spwn_ver) == None:
