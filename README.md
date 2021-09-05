@@ -2,4 +2,4 @@
     <img src="logo.png">
 </p>
 
-<h1 align="center" style="color::red">DOESN'T DO ANYTHING YET</h1>
+<h1 align="center">DOESN'T DO ANYTHING YET</h1>
