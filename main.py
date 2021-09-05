@@ -53,9 +53,9 @@ class Stck(QWidget):
         build_options.addWidget(self.include_path_data)
         build_options_group.setLayout(build_options)
 
-        file_group = QGroupBox("File Select")
+        file_group = QGroupBox("Location Select")
         file = QHBoxLayout()
-        file.addWidget(QLabel("SPWN File:"))
+        file.addWidget(QLabel("Location:"))
         file.addWidget(QLineEdit())
         file.addWidget(QPushButton('Browse'))
         file_group.setLayout(file)
