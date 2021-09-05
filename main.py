@@ -20,11 +20,12 @@ class Dpsht(QWidget):
 
         build_group = QGroupBox("Build")
         build = QVBoxLayout()
-        build_type = QComboBox()
+        self.build_type = QComboBox()
         build_type.addItem("Script")
         build_type.addItem("Documentation")
-        build.addWidget(build_type)
-        build.addWidget(QPushButton("Build"))
+        build.addWidget(self.build_type)
+        self.build_button = QPushButton("Build")
+        build.addWidget(self.build_button)
         build_group.setLayout(build)
 
         build_options_group = QGroupBox("Build Options")
