@@ -4,7 +4,6 @@ from PyQt5.QtGui import *
 from pathlib import Path
 import sys
 import subprocess
-import re
 
 class Dpsht(QWidget):
     def __init__(self):
@@ -12,12 +11,11 @@ class Dpsht(QWidget):
         self.initUI()
 
     def initUI(self):
-        spwn_ver = subprocess.check_output(['spwn', 'version']).decode()
-        dpsht_ver = "v0.1.0"
-        
-        ver_match = re.compile("v[0-9]+[.][0-9]+[.][0-9]+")
-        if ver_match.match(spwn_ver) == None:
+        try:
+            spwn_ver = subprocess.check_output(['spwn', 'version']).decode()
+        except:
             spwn_ver = "N/A"
+        dpsht_ver = "v0.1.0"
 
         build_group = QGroupBox("Build")
         build = QVBoxLayout()
