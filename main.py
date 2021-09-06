@@ -15,7 +15,10 @@ class Dpsht(QWidget):
         self.initUI()
 
     def initUI(self):
+        self.build_date = "Sunday, September 5, 2021, 11:23 PM"
         self.is_injected = False
+        self.about_fn = QShortcut(QKeySequence('F1'), self)
+        self.about_fn.activated.connect(self.about_func)
         try:
             spwn_ver = subprocess.check_output(['spwn', 'version']).decode()
         except:
@@ -110,7 +113,7 @@ class Dpsht(QWidget):
         self.setWindowTitle(f'DPSHT {dpsht_ver}')
         self.setWindowIcon(QIcon("logo.ico"))
         self.setFixedWidth(400)
-        self.setFixedHeight(660)
+        self.setFixedHeight(680)
         self.show()
 
     def level_name_change(self, state):
@@ -197,11 +200,13 @@ class Dpsht(QWidget):
             self.res = subprocess.check_output(['spwn', subcommand, self.location_data.text(), no_level_flag, no_opti_flag, level_name_flag, level_name_flag_name, live_flag, save_flag, save_flag_location, include_flag, include_flag_location])
             output.setWindowTitle("Result")
             output.setIcon(QMessageBox.Information)
+            output.setWindowIcon(QIcon("logo.ico"))
             output.setText("Script built successfully.")
             output.exec()
         except subprocess.CalledProcessError:
             output.setWindowTitle("Fatal Error")
             output.setIcon(QMessageBox.Critical)
+            output.setWindowIcon(QIcon("logo.ico"))
             output.setText("Something went wrong.")
             output.exec()
 
@@ -236,6 +241,14 @@ class Dpsht(QWidget):
         else:
             self.live_dll.setChecked(False)
             self.live_dll.setDisabled(True)
+
+    def about_func(self):
+        about_box = QMessageBox()
+        about_box.setWindowTitle("About")
+        about_box.setIcon(QMessageBox.Information)
+        about_box.setWindowIcon(QIcon("logo.ico"))
+        about_box.setText(f"Developed by Deltara\nMy code is a mess.\nBuild date: {self.build_date}")
+        about_box.exec()
 
 def main():
     app = QApplication(sys.argv)
