@@ -101,6 +101,7 @@ class Dpsht(QWidget):
 
         self.setLayout(main)
         self.setWindowTitle(f'DPSHT {dpsht_ver}')
+        self.setWindowIcon(QIcon("logo.ico"))
         self.setFixedWidth(400)
         self.setFixedHeight(660)
         self.show()
