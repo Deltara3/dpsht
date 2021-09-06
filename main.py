@@ -167,7 +167,10 @@ class Dpsht(QWidget):
             output.setText("Script built successfully.")
             output.exec()
         except subprocess.CalledProcessError:
-            pass
+            output.setWindowTitle("Fatal Error")
+            output.setIcon(QMessageBox.Critical)
+            output.setText("Something went wrong.")
+            output.exec()
 
     def browse_button_click(self):
         selection = self.build_type.currentText()
