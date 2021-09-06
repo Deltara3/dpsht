@@ -2,6 +2,11 @@
     <img src="logo.png">
 </p>
 
+# Implemented
+- [X] All SPWN flags and subcommands as of v0.0.6
+- [ ] Proper error displaying, I.E: if there is a syntax error it'll just say something went wrong.
+- [ ] Actually pog installer
+
 # Requirements
 - Python
 
