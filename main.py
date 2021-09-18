@@ -23,7 +23,7 @@ class Dpsht(QWidget):
             spwn_ver = subprocess.check_output(['spwn', 'version']).decode()
         except:
             spwn_ver = "N/A"
-        dpsht_ver = "v0.1.0"
+        dpsht_ver = "v0.2.0"
 
         build_group = QGroupBox("Build")
         build = QVBoxLayout()
@@ -81,6 +81,18 @@ class Dpsht(QWidget):
         self.include_path.stateChanged.connect(self.include_path_change)
         build_options.addWidget(self.include_path)
         build_options.addLayout(include_dir)
+        self.allow = QCheckBox('Allow')
+        self.allow.stateChanged.connect(self.allow_change)
+        build_options.addWidget(self.allow)
+        self.allow_data = QLineEdit()
+        self.allow_data.setDisabled(True)
+        build_options.addWidget(self.allow_data)
+        self.deny = QCheckBox('Deny')
+        self.deny.stateChanged.connect(self.deny_change)
+        build_options.addWidget(self.deny)
+        self.deny_data = QLineEdit()
+        self.deny_data.setDisabled(True)
+        build_options.addWidget(self.deny_data)
         self.build_options_group.setLayout(build_options)
 
         logo_label = QLabel()
@@ -113,7 +125,7 @@ class Dpsht(QWidget):
         self.setWindowTitle(f'DPSHT {dpsht_ver}')
         self.setWindowIcon(QIcon("logo.ico"))
         self.setFixedWidth(400)
-        self.setFixedHeight(680)
+        self.setFixedHeight(800)
         self.show()
 
     def level_name_change(self, state):
@@ -122,7 +134,7 @@ class Dpsht(QWidget):
         else:
             self.level_name_data.clear()
             self.level_name_data.setDisabled(True)
-    
+
     def save_file_change(self, state):
         if state == Qt.Checked:
             self.save_file_data.setDisabled(False)
@@ -190,6 +202,18 @@ class Dpsht(QWidget):
                         break
                     else:
                         break
+        self.new_allow_array = []
+        if self.allow.isChecked():
+            allow_array = self.allow_data.text().split(" ")
+            for i in allow_array:
+                self.new_allow_array.append("--allow")
+                self.new_allow_array.append(i)
+        self.new_deny_array = []
+        if self.deny.isChecked():
+            deny_array = self.deny_data.text().split(" ")
+            for i in deny_array:
+                self.new_deny_array.append("--deny")
+                self.new_deny_array.append(i)
         selection = self.build_type.currentText()
         output = QMessageBox()
         if selection == "Script":
@@ -197,7 +221,13 @@ class Dpsht(QWidget):
         elif selection == "Documentation":
             subcommand = 'doc'
         try:
-            self.res = subprocess.check_output(['spwn', subcommand, self.location_data.text(), no_level_flag, no_opti_flag, level_name_flag, level_name_flag_name, live_flag, save_flag, save_flag_location, include_flag, include_flag_location])
+            base_array = ['spwn', subcommand, self.location_data.text(), no_level_flag, no_opti_flag, level_name_flag, level_name_flag_name, live_flag, save_flag, save_flag_location, include_flag, include_flag_location]
+            for i in self.new_allow_array:
+                base_array.append(i)
+            for i in self.new_deny_array:
+                base_array.append(i)
+            print(base_array)
+            self.res = subprocess.check_output(base_array)
             output.setWindowTitle("Result")
             output.setIcon(QMessageBox.Information)
             output.setWindowIcon(QIcon("logo.ico"))
@@ -234,7 +264,7 @@ class Dpsht(QWidget):
     def browse_include_button_click(self):
             browse = QFileDialog.getExistingDirectory(self, 'Select include directory')
             self.include_path_data.setText(browse)
-    
+
     def live_change(self, state):
         if state == Qt.Checked:
             self.live_dll.setDisabled(False)
@@ -242,12 +272,26 @@ class Dpsht(QWidget):
             self.live_dll.setChecked(False)
             self.live_dll.setDisabled(True)
 
+    def allow_change(self, state):
+        if state == Qt.Checked:
+            self.allow_data.setDisabled(False)
+        else:
+            self.allow_data.clear()
+            self.allow_data.setDisabled(True)
+
+    def deny_change(self, state):
+        if state == Qt.Checked:
+            self.deny_data.setDisabled(False)
+        else:
+            self.deny_data.clear()
+            self.deny_data.setDisabled(True)
+
     def about_func(self):
         about_box = QMessageBox()
         about_box.setWindowTitle("About")
         about_box.setIcon(QMessageBox.Information)
         about_box.setWindowIcon(QIcon("logo.ico"))
-        about_box.setText(f"Developed by Deltara\nMy code is a mess.\nBuild date: {self.build_date}")
+        about_box.setText(f"Developed by Deltara\nMy code is still a mess.\nBuild date: {self.build_date}")
         about_box.exec()
 
 def main():
